@@ -1,4 +1,4 @@
-module github.com/ricci2511/dedupsc
+module github.com/ricci2511/deduplo
 
 go 1.21.3
 
