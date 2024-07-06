@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/ricci2511/riccis-homelab-utils/dupescout"
+	"github.com/ricci2511/dupescout"
 )
 
 // Groups video files together based on their audio codec.

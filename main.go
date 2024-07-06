@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/ricci2511/riccis-homelab-utils/dupescout"
+	"github.com/ricci2511/dupescout"
 )
 
 func main() {
