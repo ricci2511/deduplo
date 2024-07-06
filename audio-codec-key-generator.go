@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/ricci2511/dupescout"
+	"github.com/ricci2511/filecollate"
 )
 
 // Groups video files together based on their audio codec.
@@ -13,7 +13,7 @@ import (
 // others will be skipped.
 //
 // Dependencies: ffprobe
-func audioCodecKeyGenerator(audioCodec string) dupescout.KeyGeneratorFunc {
+func audioCodecKeyGenerator(audioCodec string) filecollate.KeyGeneratorFunc {
 	return func(path string) (string, error) {
 		fileName := filepath.Base(path)
 		if !validVideoExt(filepath.Ext(fileName)) {
@@ -36,6 +36,6 @@ func audioCodecKeyGenerator(audioCodec string) dupescout.KeyGeneratorFunc {
 			return codec, nil
 		}
 
-		return "", dupescout.ErrSkipFile
+		return "", filecollate.ErrSkipFile
 	}
 }

@@ -1,6 +1,6 @@
 # deduplo
 
-A simple CLI program that uses my `dupescout` package to find duplicate files in the given directory, lists them, and optionally deletes them if any are selected.
+A simple CLI program that uses my `filecollate` package to find duplicate files in the given directory, lists them, and optionally deletes them if any are selected.
 
 # warning :warning:
 

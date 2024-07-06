@@ -9,11 +9,11 @@ import (
 	"time"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/ricci2511/dupescout"
+	"github.com/ricci2511/filecollate"
 )
 
 func main() {
-	cfg := dupescout.Cfg{}
+	cfg := filecollate.Cfg{}
 	cfg.KeyGenerator = keyGeneratorSelect()
 	flag.Var(&cfg.Paths, "p", "paths to search for duplicates")
 	flag.BoolVar(&cfg.SkipSubdirs, "sd", false, "skip directories traversal")
@@ -36,8 +36,8 @@ func main() {
 	dupesChan := make(chan []string, 10)
 
 	// Start the duplicate search in its own goroutine.
-	go func(cfg dupescout.Cfg, dupesChan chan []string) {
-		err := dupescout.StreamResults(cfg, dupesChan)
+	go func(cfg filecollate.Cfg, dupesChan chan []string) {
+		err := filecollate.StreamResults(cfg, dupesChan)
 		if err != nil {
 			log.Println(err)
 		}
@@ -128,7 +128,7 @@ func humanReadableSize(size int64) string {
 }
 
 type keyGeneratorPair struct {
-	fn          dupescout.KeyGeneratorFunc
+	fn          filecollate.KeyGeneratorFunc
 	description string
 }
 
@@ -143,24 +143,24 @@ var keygenMap = map[string]keyGeneratorPair{
 	},
 	"Crc32HashKeyGenerator": {
 		description: "Generates a crc32 hash of the first 16KB of the file contents.",
-		fn:          dupescout.Crc32HashKeyGenerator,
+		fn:          filecollate.Crc32HashKeyGenerator,
 	},
 	"FullCrc32HashKeyGenerator": {
 		description: "Generates a crc32 hash of the entire file contents. Slower, but more accurate.",
-		fn:          dupescout.FullCrc32HashKeyGenerator,
+		fn:          filecollate.FullCrc32HashKeyGenerator,
 	},
 	"Sha256HashKeyGenerator": {
 		description: "Generates a sha256 hash of the first 16KB of the file contents.",
-		fn:          dupescout.Sha256HashKeyGenerator,
+		fn:          filecollate.Sha256HashKeyGenerator,
 	},
 	"FullSha256HashKeyGenerator": {
 		description: "Generates a sha256 hash of the entire file contents. Slower, but more accurate.",
-		fn:          dupescout.FullSha256HashKeyGenerator,
+		fn:          filecollate.FullSha256HashKeyGenerator,
 	},
 }
 
 // Prompts the user to select a key generator function and returns it.
-func keyGeneratorSelect() dupescout.KeyGeneratorFunc {
+func keyGeneratorSelect() filecollate.KeyGeneratorFunc {
 	var keygenFnNames []string
 	for fnName := range keygenMap {
 		keygenFnNames = append(keygenFnNames, fnName)
